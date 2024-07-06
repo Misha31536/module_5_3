@@ -22,43 +22,48 @@ class House:
         return self.name
 
     def __add__(self, value):
-        if not isinstance(value.number_of_floors, (int, House)):
-            raise ArithmeticError("Правый операнд должен быть типом int или объектом House")
+        if isinstance(value, (int, House)):
+            return self.number_of_floors + value
 
-        return self.number_of_floors + value
+        return print(f'нельзя сложить {self.number_of_floors} и {value}')
 
     def __iadd__(self, value):
-        if not isinstance(value.number_of_floors, (int, House)):
-            raise ArithmeticError("Правый операнд должен быть типом int или объектом House")
+        if isinstance(value, (int, House)):
+            nf = value if isinstance(value, int) else value.number_of_floors
+            self.number_of_floors += nf
+            return self
 
-        nf = value if isinstance(value, int) else value.number_of_floors
-        self.number_of_floors += nf
-
-        return self
+        return print(f'нельзя сложить {self.number_of_floors} и {value}')
 
     def __radd__(self, value):
-        if not isinstance(value.number_of_floors, (int, House)):
-            raise ArithmeticError("Правый операнд должен быть типом int или объектом House")
+        if isinstance(value, (int, House)):
+            return self.number_of_floors + value
 
-        return self.number_of_floors + value
+        return print(f'нельзя сравнить {self.number_of_floors} и {value}')
 
     def __eq__(self, other):  # Равенство
-        if not isinstance(other.number_of_floors, (int, House)):
-            return print(f'нельзя сравнить {self.number_of_floors} и {other.number_of_floors}')
-        else:
-            return self.number_of_floors == other.number_of_floors
+        if isinstance(other, (int, House)):
+            return self.number_of_floors == other
+
+        return print(f'нельзя сравнить {self.number_of_floors} и {other}')
+
+        # if not isinstance(other, House):
+        #     return print(f'нельзя сравнить {self.number_of_floors} и {other.number_of_floors}')
+        # else:
+        #     return self.number_of_floors == other.number_of_floors
 
     def __lt__(self, other):  # Меньше
-        if not isinstance(other.number_of_floors, (int, House)):
-            return print(f'нельзя сравнить {self.number_of_floors} и {other.number_of_floors}')
-        else:
+        if isinstance(other, House):
             return self.number_of_floors < other.number_of_floors
+        elif isinstance(other, int):
+            return self.number_of_floors < other
+        return print(f'нельзя сравнить {self.number_of_floors} и {other}')
 
     def __le__(self, other):  # Меньше или равно
-        if not isinstance(other.number_of_floors, (int, House)):
-            return print(f'нельзя сравнить {self.number_of_floors} и {other.number_of_floors}')
-        else:
+        if isinstance(other, (int, House)):
             return self.number_of_floors <= other.number_of_floors
+
+        return print(f'нельзя сравнить {self.number_of_floors} и {other.number_of_floors}')
 
     # def __gt__(self, other): # Больше
     #     if isinstance(other, House) and isinstance(other.number_of_floors, int):
@@ -102,4 +107,5 @@ print(f' Название {dom} количество этажей {len(dom)}')
 # radd
 dom.number_of_floors = 10 + dom.number_of_floors
 print(f' Название {dom} количество этажей {len(dom)}')
-
+print(elbrus == 30)
+print(elbrus < 30)
